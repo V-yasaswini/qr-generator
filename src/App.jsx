@@ -11,6 +11,20 @@ const ECC_LEVELS = [
   ['H', 'High (30%)'],
 ]
 
+function confetti() {
+  const colors = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6']
+  for (let i = 0; i < 45; i++) {
+    const p = document.createElement('i')
+    p.className = 'confetti'
+    p.style.left = Math.random() * 100 + 'vw'
+    p.style.background = colors[i % colors.length]
+    p.style.animationDelay = Math.random() * 0.3 + 's'
+    p.style.setProperty('--drift', Math.random() * 200 - 100 + 'px')
+    document.body.appendChild(p)
+    setTimeout(() => p.remove(), 2500)
+  }
+}
+
 export default function App() {
   const canvasRef = useRef(null)
   const [type, setType] = useState('url')
