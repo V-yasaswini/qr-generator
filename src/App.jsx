@@ -88,6 +88,7 @@ export default function App() {
 
   const flash = (text) => {
     setMessage(text)
+    if (/downloaded|Copied/.test(text)) confetti()
     setTimeout(() => setMessage(''), 2500)
   }
 
@@ -183,6 +184,10 @@ export default function App() {
   }
 
   return (
+       <>
+    <div className="bg-blobs" aria-hidden="true">
+      <span /><span /><span />
+    </div>
     <div className="app">
       <header className="topbar">
         <h1>▦ QR Studio</h1>
@@ -190,6 +195,16 @@ export default function App() {
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
       </header>
+
+      <section className="hero">
+        <span className="badge">✨ Free • No sign-up • 100% private</span>
+        <h2 className="hero-title">
+          Create stunning <span className="gradient-text">QR codes</span> in seconds
+        </h2>
+        <p className="hero-sub">
+          Links, Wi-Fi, email, phone and more. Customize it live, then download it instantly.
+        </p>
+      </section>
 
       <main className="layout">
         {/* LEFT: controls */}
@@ -313,7 +328,7 @@ export default function App() {
         {/* RIGHT: preview */}
         <section className="panel preview-panel">
           <h2>Live preview</h2>
-          <div className="preview">
+            <div className={'preview' + (canExport ? ' scanning' : '')}>
             <canvas ref={canvasRef} className={canExport ? 'qr' : 'qr hidden'} aria-label="QR code preview" />
             {!canExport && (
               <div className="placeholder">
@@ -371,7 +386,8 @@ export default function App() {
         )}
       </section>
 
-      <footer className="footer">Everything happens in your browser. Nothing is uploaded.</footer>
+            <footer className="footer">Everything happens in your browser. Nothing is uploaded.</footer>
     </div>
+    </>
   )
 }
